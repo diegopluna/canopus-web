@@ -11,12 +11,12 @@ export default function SignIn() {
         <div key="1" className="min-h-screen flex flex-col justify-between">
             <img
                 alt="Background Image Top Right"
-                className="absolute top-0 right-0 h-[438px] w-[457px] object-cover z-10"
+                className="hidden lg:block absolute top-0 right-0 h-[438px] w-[457px] object-cover z-10"
                 src="/StarTopRight.svg"
             />
             <img
                 alt="Background Image Bottom Left"
-                className="absolute bottom-0 left-0 h-[580px] w-[628px] object-cover z-10"
+                className="hidden lg:block absolute bottom-0 left-0 h-[580px] w-[628px] object-cover z-10"
                 src="/StarBottomLeft.svg"
             />
             <main className="flex flex-col justify-center sm:py-12 z-20">
