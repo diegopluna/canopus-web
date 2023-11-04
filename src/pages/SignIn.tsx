@@ -1,12 +1,41 @@
+import React, { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Footer from "@/components/footer";
 import { Separator } from "@/components/ui/separator";
+import { useToast } from "@/components/ui/use-toast"
 
+interface FormValues {
+    email: string;
+    password: string;
+}
 
 
 export default function SignIn() {
+    const { toast } = useToast()
+    const [formData, setFormData] = useState<FormValues>({
+        email: "",
+        password: "",
+    });
+
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        // const { email, password } = formData;
+        toast({
+            variant: "destructive",
+            description: "Teste",
+        })
+    }
+
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        setFormData((prevData) => ({
+          ...prevData,
+          [name]: value,
+        }));
+    };
+
     return (
         <div key="1" className="min-h-screen flex flex-col justify-between">
             <img
@@ -30,19 +59,35 @@ export default function SignIn() {
                             width="280"
                         />
                     </h1>
-                    <div className="space-y-4">
+                    <form className="space-y-4" onSubmit={handleSubmit}>
                         <div className="space-y-2">
                             <Label className="text-base" htmlFor="email">E-mail</Label>
-                            <Input className="dark:bg-muted/30 dark:border-input/30 dark:text-primary-foreground" id="email" required type="email" />
+                            <Input 
+                                className="dark:bg-muted/30 dark:border-input/30 dark:text-primary-foreground" 
+                                id="email"
+                                name="email" 
+                                required 
+                                type="email"
+                                value={formData.email}
+                                onChange={handleInputChange} 
+                            />
                         </div>
                         <div className="space-y-2">
                             <Label className="text-base" htmlFor="password">Senha</Label>
-                            <Input className="dark:bg-muted/30 dark:border-input/30 dark:text-primary-foreground" id="password" required type="password" />
+                            <Input 
+                                className="dark:bg-muted/30 dark:border-input/30 dark:text-primary-foreground" 
+                                id="password" 
+                                name="password"
+                                required 
+                                type="password" 
+                                value={formData.password}
+                                onChange={handleInputChange}
+                            />
                         </div>
                         <Button className="w-full text-lg" type="submit">
                             Entrar
                         </Button>
-                    </div>    
+                    </form>    
                 </div>  
                 <Separator className="my-4 w-full sm:w-[400px] mx-auto dark:bg-[#FFFFFF]/50" /> 
                 <div className="text-center">
