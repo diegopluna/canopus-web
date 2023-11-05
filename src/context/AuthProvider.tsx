@@ -17,7 +17,7 @@ export default AuthContext
 
 export const AuthProvider = () => {
     
-    const domain: string = "urldaapi/api/"
+    const domain: string | undefined = process.env.API_URL
 
     const navigate = useNavigate();
 
