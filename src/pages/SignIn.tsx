@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button";
 import Footer from "@/components/footer";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/components/ui/use-toast"
+import starBottomLeft from "@/assets/StarBottomLeft.svg"
+import starTopRight from "@/assets/StarTopRight.svg"
+import canopusLogo from "@/assets/Canopus.svg"
 
 interface FormValues {
     email: string;
@@ -42,12 +45,12 @@ export default function SignIn() {
             <img
                 alt="Background Image Top Right"
                 className="hidden lg:block absolute top-0 right-0 h-[438px] w-[457px] object-cover z-10"
-                src="/StarTopRight.svg"
+                src={starTopRight}
             />
             <img
                 alt="Background Image Bottom Left"
                 className="hidden lg:block absolute bottom-0 left-0 h-[580px] w-[628px] object-cover z-10"
-                src="/StarBottomLeft.svg"
+                src={starBottomLeft}
             />
             <main className="flex flex-col justify-center sm:py-12 z-20">
                 <div className="p-4 sm:p-10  mx-auto w-full sm:w-[400px] rounded-xl">
@@ -56,7 +59,7 @@ export default function SignIn() {
                             alt="Logo"
                             className="aspect-[2/1] overflow-hidden rounded-lg object-contain object-center mx-auto"
                             height="140"
-                            src="/Canopus.svg"
+                            src={canopusLogo}
                             width="280"
                         />
                     </h1>
