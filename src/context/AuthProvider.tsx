@@ -17,7 +17,7 @@ export default AuthContext
 
 export const AuthProvider = () => {
     
-    const domain: string = "urldaapi/api/"
+    const domain: string  = window.location.hostname === "localhost" ? "http://localhost:8080" : "https://canopus-api.dpeter.tech"
 
     const navigate = useNavigate();
 
@@ -29,7 +29,7 @@ export const AuthProvider = () => {
             })
 
             if (response.status === 200) {
-                //TODO: SETAR OS TOKENS
+                //TODO SETAR OS TOKENS
                 navigate("/")
                 return true;
             }

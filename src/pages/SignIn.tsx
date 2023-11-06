@@ -21,10 +21,11 @@ export default function SignIn() {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
+        const domain: string  = window.location.hostname === "localhost" ? "http://localhost:8080" : "https://canopus-api.dpeter.tech"
         // const { email, password } = formData;
         toast({
             variant: "destructive",
-            description: "Teste",
+            description: domain,
         })
     }
 
