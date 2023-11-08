@@ -1,11 +1,12 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 import { Outlet, useNavigate } from 'react-router-dom'
-import axios from "axios";
+// import axios from "axios";
 
 
 interface AuthContextType {
     user: boolean;
-    loginUser: (email: string, password: string) => Promise<boolean>;
+    username:string
+    loginUser: (email: string) => Promise<boolean>;
     logoutUser: () => Promise<void>;
 
 }
@@ -16,27 +17,30 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export default AuthContext
 
 export const AuthProvider = () => {
+    const [username, setUsername] = useState("")
     
-    const domain: string  = window.location.hostname === "localhost" ? "http://localhost:8080" : "http://canopus-api.dpeter.tech"
+    // const domain: string  = window.location.hostname === "localhost" ? "http://localhost:8080" : "http://canopus-api.dpeter.tech"
 
     const navigate = useNavigate();
 
-    const loginUser = async( email: string, password: string): Promise<boolean> => {
-        try {
-            const response = await axios.post(`${domain}/token/`, {
-                email: email,
-                password: password
-            })
+    const loginUser = async( email: string): Promise<boolean> => {
+        // try {
+        //     const response = await axios.post(`${domain}/token/`, {
+        //         email: email,
+        //         password: password
+        //     })
 
-            if (response.status === 200) {
-                //TODO SETAR OS TOKENS
-                navigate("/")
-                return true;
-            }
-        } catch (error) {
-            return false
-        }
-        return false;
+        //     if (response.status === 200) {
+        //         //TODO SETAR OS TOKENS
+        //         navigate("/")
+        //         return true;
+        //     }
+        // } catch (error) {
+        //     return false
+        // }
+        // return false;
+        setUsername(email)
+        return true
     }
 
     const logoutUser = async () => {
@@ -46,6 +50,7 @@ export const AuthProvider = () => {
 
     const contextData: AuthContextType = {
         user: false,
+        username: username,
         loginUser: loginUser,
         logoutUser: logoutUser
     }
