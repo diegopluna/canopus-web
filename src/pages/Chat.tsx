@@ -1,23 +1,21 @@
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-// import { Avatar } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Client, IMessage } from "@stomp/stompjs"
-import { useEffect, useMemo, useState, useContext } from "react"
+import { useEffect, useMemo, useState, useContext, useRef } from "react"
 import AuthContext from "@/context/AuthProvider"
-// import { AvatarFallback } from "@radix-ui/react-avatar"
 
 interface ChatMessage {
     type: string,
     sender: string,
-    content: string
+    content: string,
+    sentTime: string
 }
 
 export default function Chat() {
     const [sentMessage, setSentMessage] = useState("")
     const [receivedMessages, setReceivedMessages] = useState<ChatMessage[]>([])   
-    // const [messages, setMessages] = useState([]);
-    // const [messageInput, setMessageInput] = useState('');
-    const domain: string  = window.location.hostname === "localhost" ? "wss://localhost:8080/ws" : "wss://api-canopus.dpeter.tech/ws"
+    const domain: string  = window.location.hostname === "localhost" ? "ws://localhost:8080/ws" : "wss://api-canopus.dpeter.tech/ws"
     // const domain = "wss://api-canopus.dpeter.tech/ws"
     const client = useMemo(() => {
         return new Client({
@@ -30,6 +28,14 @@ export default function Chat() {
     client.onConnect = () => {
         client.subscribe('/topic/public', onMessageReceived)
     }
+
+    const scrollRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+        }
+    }, [receivedMessages]);
 
     useEffect(() => {
         if (!client.active) {
@@ -56,7 +62,8 @@ export default function Chat() {
         client.publish({destination: '/topic/public', body: JSON.stringify({
             sender: username,
             type: "CHAT",
-            content: sentMessage
+            content: sentMessage,
+            sentTime: new Date()
         })})
         setSentMessage("")
     }
@@ -65,26 +72,26 @@ export default function Chat() {
         <div className="grid h-screen grid-cols-[300px_1fr] gap-4 p-4">
             <div className="rounded-lg shadow overflow-hidden">
                 <div className="p-4 border-b">
-                    <h2 className="text-lg font-semibold">Channels</h2>
+                    <h2 className="text-lg font-semibold">Canais</h2>
                 </div>
                 <nav className="px-4 py-2 space-y-1">
-                    <a className="block px-3 py-2 rounded-md text-sm font-medium" href="#">General</a>
+                    <a className="block px-3 py-2 rounded-md text-sm font-medium" href="#">Geral</a>
                 </nav>
             </div>
             <div className="flex flex-col h-full rounded-lg shadow overflow-hidden">
                 <div className="flex-grow overflow-auto">
-                    <div className="p-4 space-y-4 overflow-y-scroll h-full">
+                    <div className="p-4 space-y-4 overflow-y-scroll h-full" ref={scrollRef}>
                         {receivedMessages.map(message => (
                             <div className="flex items-start space-x-3">
-                                {/* <Avatar>
+                                <Avatar>
                                     <AvatarFallback>{message.sender[0]}</AvatarFallback>
-                                </Avatar> */}
+                                </Avatar>
                                 <div>
                                 <p className="text-sm text-gray-500">{message.sender}</p>
                                 <p className="text-sm bg-gray-200 dark:bg-gray-700 p-2 rounded-md">
                                     {message.content}
                                 </p>
-                                {/* <p className="text-sm text-gray-400">10:17 AM, Oct 29, 2023</p> */}
+                                <p className="text-sm text-gray-400">{new Date(Date.parse(message.sentTime)).toLocaleString('pt-BR', { hour: 'numeric', minute: 'numeric', year: 'numeric', month: 'short', day: 'numeric', hour12: false })}</p>
                                 </div>
                             </div>
                         ))}
@@ -94,12 +101,12 @@ export default function Chat() {
                     <form className="p-4 flex space-x-3" onSubmit={sendMessage}>
                         <Input
                             className="flex-grow dark:bg-muted/30 dark:border-input/30 dark:text-primary-foreground"
-                            placeholder="Type a message"
+                            placeholder="Escreva uma mensagem"
                             value={sentMessage}
                             onChange={(e) => setSentMessage(e.target.value)}
                         />
                         <Button className="text-lg" type="submit">
-                            Send
+                            Enviar
                         </Button>
                     </form>
                 </div>
