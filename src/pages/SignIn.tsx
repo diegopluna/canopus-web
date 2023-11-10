@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -8,6 +8,7 @@ import { useToast } from "@/components/ui/use-toast"
 import starBottomLeft from "@/assets/StarBottomLeft.svg"
 import starTopRight from "@/assets/StarTopRight.svg"
 import canopusLogo from "@/assets/Canopus.svg"
+import AuthContext from "@/context/AuthProvider";
 
 interface FormValues {
     email: string;
@@ -22,14 +23,21 @@ export default function SignIn() {
         password: "",
     });
 
+    const authContext = useContext(AuthContext)
+    if (authContext === undefined) {
+        return null
+    }
+    const { loginUser } = authContext;
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        const domain: string  = window.location.hostname === "localhost" ? "http://localhost:8080" : "https://canopus-api.dpeter.tech"
-        // const { email, password } = formData;
+        // const domain: string  = window.location.hostname === "localhost" ? "http://localhost:8080" : "https://canopus-api.dpeter.tech"
+        const { email} = formData;
+        loginUser(email)
         toast({
-            variant: "destructive",
-            description: domain,
+            description: "logado",
         })
+        
     }
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {

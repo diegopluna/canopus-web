@@ -1,6 +1,6 @@
 import AuthContext from "@/context/AuthProvider"
 import { useContext, ReactNode } from "react"
-import { Navigate, useLocation } from "react-router-dom"
+import { Navigate} from "react-router-dom"
 
 interface ProtectedRouteProps {
     children: ReactNode;
@@ -12,13 +12,12 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
         return null
         // TODO AJEITAR ISSO AI
     }
-    const { user } = authContext;
-    const location = useLocation().pathname
+    const { username } = authContext;
 
-    return user ? (
+    return username ? (
         children
     ) : (
-        <Navigate to={"/signin"} state={{ from: location }} replace />
+        <Navigate to={"/signin"} replace />
     )
 
 }
@@ -29,13 +28,12 @@ export const PublicRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
         return null
         // TODO AJEITAR ISSO AI
     }
-    const { user } = authContext;
-    const location = useLocation().pathname
+    const { username } = authContext;
 
-    return !user ? (
+    return !username ? (
         children
     ): (
-        <Navigate to={"/"} state={{ from: location }} replace />
+        <Navigate to={"/"} replace />
     )
 
 }
