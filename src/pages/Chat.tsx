@@ -1,10 +1,9 @@
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-// import { Avatar } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Client, IMessage } from "@stomp/stompjs"
-import { useEffect, useMemo, useState, useContext } from "react"
+import { useEffect, useMemo, useState, useContext, useRef } from "react"
 import AuthContext from "@/context/AuthProvider"
-// import { AvatarFallback } from "@radix-ui/react-avatar"
 
 interface ChatMessage {
     type: string,
@@ -17,7 +16,7 @@ export default function Chat() {
     const [receivedMessages, setReceivedMessages] = useState<ChatMessage[]>([])   
     // const [messages, setMessages] = useState([]);
     // const [messageInput, setMessageInput] = useState('');
-    const domain: string  = window.location.hostname === "localhost" ? "wss://localhost:8080/ws" : "wss://api-canopus.dpeter.tech/ws"
+    const domain: string  = window.location.hostname === "localhost" ? "ws://localhost:8000/ws" : "wss://api-canopus.dpeter.tech/ws"
     // const domain = "wss://api-canopus.dpeter.tech/ws"
     const client = useMemo(() => {
         return new Client({
@@ -30,6 +29,14 @@ export default function Chat() {
     client.onConnect = () => {
         client.subscribe('/topic/public', onMessageReceived)
     }
+
+    const scrollRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+        }
+    }, [receivedMessages]);
 
     useEffect(() => {
         if (!client.active) {
@@ -73,12 +80,16 @@ export default function Chat() {
             </div>
             <div className="flex flex-col h-full rounded-lg shadow overflow-hidden">
                 <div className="flex-grow overflow-auto">
-                    <div className="p-4 space-y-4 overflow-y-scroll h-full">
+                    <div className="p-4 space-y-4 overflow-y-scroll h-full" ref={scrollRef}>
                         {receivedMessages.map(message => (
                             <div className="flex items-start space-x-3">
                                 {/* <Avatar>
                                     <AvatarFallback>{message.sender[0]}</AvatarFallback>
                                 </Avatar> */}
+                                <Avatar>
+
+                                    <AvatarFallback>{message.sender[0]}</AvatarFallback>
+                                </Avatar>
                                 <div>
                                 <p className="text-sm text-gray-500">{message.sender}</p>
                                 <p className="text-sm bg-gray-200 dark:bg-gray-700 p-2 rounded-md">
