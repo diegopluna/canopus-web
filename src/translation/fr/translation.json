@@ -24,5 +24,8 @@
         "general": "Général",
         "input-placeholder": "Écrire un message",
         "send": "Envoyer"
-    }
+    },
+    "language-toggle": {
+        "message": "Changer de langue"
+    } 
 }

@@ -24,5 +24,8 @@
         "general": "General",
         "input-placeholder": "Escribe un mensaje",
         "send": "Enviar"
+    },
+    "language-toggle": {
+        "message": "Cambiar idioma"
     }
 }
