@@ -2,14 +2,14 @@
     "signin": {
         "bg-img-top": "Imagem de fundo no canto superior direito",
         "bg-img-bottom": "Imagem de fundo no canto inferior esquerdo",
-        "logotipo": "Logotipo",
+        "logo": "Logotipo",
         "email-label": "E-mail",
         "email-placeholder": "Digite seu e-mail",
         "password-label": "Senha",
         "password-placeholder": "Digite sua senha",
-        "botão de login": "Entrar",
+        "signin-button": "Entrar",
         "signup-message": "Não tem uma conta?",
-        "botão de inscrição": "Inscreva-se",
+        "signup-button": "Inscreva-se",
         "forgot-password": "Esqueceu a senha? Entre em contato com nossos administradores através do e-mail"
     },
     "footer": {
