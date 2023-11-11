@@ -8,7 +8,7 @@ import {
   } from "@/components/ui/sheet"
   import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
   import { Label } from "@/components/ui/label"
-  import { useState } from 'react';
+  import { useEffect, useState, useMemo } from 'react';
 
 
 
@@ -16,12 +16,12 @@ export default function Footer() {
     const {t, i18n} = useTranslation(['footer']);
     const {t: s} = useTranslation(["language-toggle"]);
 
-    const flags: { [key: string]: string } = {
+    const flags: { [key: string]: string } = useMemo(() => ({
         en: '🇬🇧',
         es: '🇪🇸',
         fr: '🇫🇷',
         pt: '🇧🇷',
-    };
+    }), []);
 
     const [trigger, setTrigger] = useState(flags[i18n.language]);
 
@@ -29,6 +29,10 @@ export default function Footer() {
         i18n.changeLanguage(language);
         setTrigger(flags[language]);
     }
+
+    useEffect(() => {
+        setTrigger(flags[i18n.language]);
+    }, [flags, i18n.language])
 
     
 
