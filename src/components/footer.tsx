@@ -8,18 +8,13 @@ import {
   } from "@/components/ui/sheet"
   import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
   import { Label } from "@/components/ui/label"
+  import { useState } from 'react';
 
 
 
-
-export default function Footer() {
+export default function Footer() {    
     const {t, i18n} = useTranslation(['footer']);
     const {t: s} = useTranslation(["language-toggle"]);
-
-    const changeLanguage = (language:string) => {
-        i18n.changeLanguage(language);
-        console.log(`Current language: ${i18n.language}`);
-    }
 
     const flags: { [key: string]: string } = {
         en: '🇬🇧',
@@ -27,6 +22,16 @@ export default function Footer() {
         fr: '🇫🇷',
         pt: '🇧🇷',
     };
+
+    const [trigger, setTrigger] = useState(flags[i18n.language]);
+
+    const changeLanguage = (language:string) => {
+        i18n.changeLanguage(language);
+        setTrigger(flags[language]);
+    }
+
+    
+
 
     return (
         <footer className="py-3 px-4 text-center dark:bg-accent dark:text-accent-foreground z-30">
@@ -47,11 +52,8 @@ export default function Footer() {
                         <a className="text-sm text" href="#">
                             {t("contact")}
                         </a>
-                        <a className="text-sm text" href="#">
-                            Language
-                        </a>
                         <Sheet>
-                            <SheetTrigger className='text-sm text'>{flags[i18n.language]}</SheetTrigger>
+                            <SheetTrigger className='text-sm text'>{trigger}</SheetTrigger>
                             <SheetContent className='space-y-2'>
                                 <SheetHeader>
                                     <SheetTitle>{s("message")}</SheetTitle>
