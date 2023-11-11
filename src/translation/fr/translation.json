@@ -1,0 +1,22 @@
+{
+    "signin": {
+        "bg-img-top": "Image de fond en haut à droite",
+        "bg-img-bottom": "Image d'arrière-plan du pied de page gauche",
+        "logo": "Logo",
+        "email-label": "E-mail",
+        "email-placeholder": "Entrez votre email",
+        "password-label": "Mot de passe",
+        "password-placeholder": "Entrez votre mot de passe",
+        "signin-button": "Connexion",
+        "signup-message": "Vous n'avez pas de compte ?",
+        "signup-button": "Inscrivez-vous",
+        "forgot-password": "Mot de passe oublié ? Contactez nos modérateurs par email"
+    },
+    "footer": {
+        "copyright": "©Copyright 2023 Jade",
+        "privacy": "Politique de confidentialité",
+        "terms": "Conditions générales",
+        "cookies": "Politique en matière de cookies",
+        "contact": "Contacter"
+    }
+}
