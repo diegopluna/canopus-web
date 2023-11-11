@@ -18,5 +18,11 @@
         "terms": "Conditions générales",
         "cookies": "Politique en matière de cookies",
         "contact": "Contacter"
+    },
+    "chat": {
+        "channels": "Canaux",
+        "general": "Général",
+        "input-placeholder": "Écrire un message",
+        "send": "Envoyer"
     }
 }
