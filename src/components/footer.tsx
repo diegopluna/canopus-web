@@ -59,7 +59,7 @@ export default function Footer() {
                                 <SheetHeader>
                                     <SheetTitle>{s("message")}</SheetTitle>
                                 </SheetHeader>
-                                <RadioGroup className='space-y-2' defaultValue={i18n.language} onValueChange={changeLanguage}>
+                                <RadioGroup className='space-y-2' defaultValue={i18n.language.split('-')[0]} onValueChange={changeLanguage}>
                                     <div className="flex items-center space-x-2">
                                         <RadioGroupItem value="en" id="en" />
                                         <Label htmlFor="en">{flags['en']} English</Label>
