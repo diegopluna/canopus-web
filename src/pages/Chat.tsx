@@ -1,15 +1,19 @@
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import { Client, IMessage } from "@stomp/stompjs"
 import { useEffect, useMemo, useState, useContext, useRef } from "react"
 import AuthContext from "@/context/AuthProvider"
+import { DateTime } from 'luxon';
+
+
 
 interface ChatMessage {
     type: string,
     sender: string,
     content: string,
-    sentTime: string
+    timestamp: string
 }
 
 export default function Chat() {
@@ -29,11 +33,11 @@ export default function Chat() {
         client.subscribe('/topic/public', onMessageReceived)
     }
 
-    const scrollRef = useRef<HTMLDivElement>(null);
+    const bottomRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        if (scrollRef.current) {
-            scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+        if (bottomRef.current) {
+            bottomRef.current.scrollIntoView({ behavior: "smooth" });
         }
     }, [receivedMessages]);
 
@@ -52,18 +56,16 @@ export default function Chat() {
     function onMessageReceived(payload: IMessage) {
         console.log(payload)
         const message = JSON.parse(payload.body)
-        console.log(`${message.sender} : ${message.content}`)
+        message.timestamp = DateTime.fromISO(message.timestamp + 'Z').setZone('local').toFormat('h:mm a, MMM dd, yyyy');
         setReceivedMessages(prevMessages => [...prevMessages, message])
-        // setMessages(prevMessages => [...prevMessages, message])
     }
     
     function sendMessage(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()
-        client.publish({destination: '/topic/public', body: JSON.stringify({
+        client.publish({destination: '/app/chat.sendMessage', body: JSON.stringify({
             sender: username,
             type: "CHAT",
             content: sentMessage,
-            sentTime: new Date()
         })})
         setSentMessage("")
     }
@@ -80,22 +82,23 @@ export default function Chat() {
             </div>
             <div className="flex flex-col h-full rounded-lg shadow overflow-hidden">
                 <div className="flex-grow overflow-auto">
-                    <div className="p-4 space-y-4 overflow-y-scroll h-full" ref={scrollRef}>
-                        {receivedMessages.map(message => (
-                            <div className="flex items-start space-x-3">
+                    <ScrollArea className="p-4 space-y-4 h-full">
+                        {receivedMessages.map((message, index) => (
+                            <div className="flex items-start space-x-3" key={index}>
                                 <Avatar>
-                                    <AvatarFallback>{message.sender[0]}</AvatarFallback>
+                                    <AvatarFallback>{message.sender[0].toUpperCase()}</AvatarFallback>
                                 </Avatar>
                                 <div>
                                 <p className="text-sm text-gray-500">{message.sender}</p>
                                 <p className="text-sm bg-gray-200 dark:bg-gray-700 p-2 rounded-md">
                                     {message.content}
                                 </p>
-                                <p className="text-sm text-gray-400">{new Date(Date.parse(message.sentTime)).toLocaleString('pt-BR', { hour: 'numeric', minute: 'numeric', year: 'numeric', month: 'short', day: 'numeric', hour12: false })}</p>
+                                <p className="text-sm text-gray-400">{message.timestamp}</p>
                                 </div>
                             </div>
                         ))}
-                    </div>
+                        <div ref={bottomRef} />
+                    </ScrollArea>
                 </div>
                 <div className="border-t">
                     <form className="p-4 flex space-x-3" onSubmit={sendMessage}>
