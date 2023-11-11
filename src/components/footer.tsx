@@ -31,8 +31,9 @@ export default function Footer() {
     }
 
     useEffect(() => {
+        i18n.changeLanguage(i18n.language);
         setTrigger(flags[i18n.language]);
-    }, [flags, i18n.language])
+    }, [flags, i18n.language, i18n])
 
     
 
