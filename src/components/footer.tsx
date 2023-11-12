@@ -36,7 +36,7 @@ export default function Footer() {
 
     return (
         <footer className="py-3 px-4 text-center dark:bg-accent dark:text-accent-foreground z-30">
-                <div className="flex justify-between space-x-4">
+                <div className="flex flex-col sm:flex-row justify-between space-y-4 sm:space-y-0 sm:space-x-4">
                     <span className="text-sm  text">
                         {t("copyright")}
                     </span>

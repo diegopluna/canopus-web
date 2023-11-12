@@ -16,8 +16,6 @@ interface FormValues {
     password: string;
 }
 
-//TODO: SETAR i18N
-
 export default function SignIn() {
     const { t } = useTranslation(['signin']);
     const { toast } = useToast()
@@ -52,7 +50,7 @@ export default function SignIn() {
     };
 
     return (
-        <div key="1" className="min-h-screen flex flex-col justify-between">
+        <div key="1" className="min-h-screen flex flex-col justify-between relative">
             <img
                 alt={t('bg-img-top')}
                 className="hidden lg:block absolute top-0 right-0 h-[438px] w-[457px] object-cover z-10"
@@ -64,7 +62,7 @@ export default function SignIn() {
                 src={starBottomLeft}
             />
             <main className="flex flex-col justify-center sm:py-12 z-20">
-                <div className="p-4 sm:p-10  mx-auto w-full sm:w-[400px] rounded-xl">
+                <div className="p-4 sm:p-10  mx-4 sm:mx-auto w-full sm:w-[400px] rounded-xl">
                     <h1 className="text-center text-3xl font-bold mb-4">
                         <img
                             alt={t('logo')}
