@@ -9,6 +9,8 @@ import {
   import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
   import { Label } from "@/components/ui/label"
   import { useState, useMemo } from 'react';
+  import { CircleFlag } from 'react-circle-flags'
+
 
 
 
@@ -17,10 +19,10 @@ export default function Footer() {
     const {t: s} = useTranslation(["language-toggle"]);
 
     const flags: { [key: string]: string } = useMemo(() => ({
-        en: '🇬🇧',
-        es: '🇪🇸',
-        fr: '🇫🇷',
-        pt: '🇧🇷',
+        en: 'gb',
+        es: 'es',
+        fr: 'fr',
+        pt: 'br',
     }), []);
 
     const [trigger, setTrigger] = useState(flags[i18n.language.split('-')[0]]);
@@ -54,7 +56,9 @@ export default function Footer() {
                             {t("contact")}
                         </a>
                         <Sheet>
-                            <SheetTrigger className='text-sm text'>{trigger}</SheetTrigger>
+                            <SheetTrigger className='text-sm text'>
+                                <CircleFlag countryCode={trigger} style={{width: '20px', height: '20px'}} />
+                            </SheetTrigger>
                             <SheetContent className='space-y-2'>
                                 <SheetHeader>
                                     <SheetTitle>{s("message")}</SheetTitle>
@@ -62,19 +66,23 @@ export default function Footer() {
                                 <RadioGroup className='space-y-2' defaultValue={i18n.language.split('-')[0]} onValueChange={changeLanguage}>
                                     <div className="flex items-center space-x-2">
                                         <RadioGroupItem value="en" id="en" />
-                                        <Label htmlFor="en">{flags['en']} English</Label>
+                                        <CircleFlag countryCode={flags['en']} style={{width: '20px', height: '20px'}} />
+                                        <Label htmlFor="en"> English</Label>
                                     </div>
                                     <div className="flex items-center space-x-2">
                                         <RadioGroupItem value="es" id="es" />
-                                        <Label htmlFor="es">{flags['es']} Español</Label>
+                                        <CircleFlag countryCode={flags['es']} style={{width: '20px', height: '20px'}} />
+                                        <Label htmlFor="es"> Español</Label>
                                     </div>
                                     <div className="flex items-center space-x-2">
                                         <RadioGroupItem value="fr" id="fr" />
-                                        <Label htmlFor="fr">{flags['fr']} Français</Label>
+                                        <CircleFlag countryCode={flags['fr']} style={{width: '20px', height: '20px'}} />
+                                        <Label htmlFor="fr"> Français</Label>
                                     </div>
                                     <div className="flex items-center space-x-2">
                                         <RadioGroupItem value="pt" id="pt" />
-                                        <Label htmlFor="pt">{flags['pt']} Português</Label>
+                                        <CircleFlag countryCode={flags['pt']} style={{width: '20px', height: '20px'}} />
+                                        <Label htmlFor="pt"> Português</Label>
                                     </div>
                                 </RadioGroup>
                             </SheetContent>
