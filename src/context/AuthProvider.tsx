@@ -35,7 +35,7 @@ export default AuthContext
 export const AuthProvider = () => {
     const [username, setUsername] = useState("")
     
-    const domain: string  = window.location.hostname === "localhost" ? "http://localhost:8080" : "https://canopus-api.dpeter.tech"
+    const domain: string  = window.location.hostname === "localhost" ? "http://localhost:8080" : "https://api-canopus.dpeter.tech"
 
     const navigate = useNavigate();
 
