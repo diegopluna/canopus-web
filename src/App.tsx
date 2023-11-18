@@ -6,6 +6,7 @@ import  { createBrowserRouter, RouterProvider} from "react-router-dom"
 import { AuthProvider } from "./context/AuthProvider"
 import ProtectedRoute, { PublicRoute } from "./utils/ProtectedRoute"
 import SignUp from "./pages/SignUp"
+import Verify from "./pages/Verify"
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
         </PublicRoute>
       }
     ]
+  },
+  {
+    path: "/verify",
+    element: <Verify />
   }
 ])
 

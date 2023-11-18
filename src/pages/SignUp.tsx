@@ -290,7 +290,13 @@ export default function SignUp() {
             setAlertDescription("Para confirmar sua conta, clique no link enviado no email de verificação que foi enviado para seu email.");
         } else {
             setAlertTitle("Erro!");
-            setAlertDescription(response.message);
+
+            if (response.message === "") {
+                setAlertDescription("Ocorreu um erro ao tentar realizar o cadastro. Tente novamente mais tarde.");
+            } else {
+                setAlertDescription(response.message);
+            }
+            
         }
 
         setOpenAlert(true);
