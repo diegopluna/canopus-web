@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster"
 import  { createBrowserRouter, RouterProvider} from "react-router-dom"
 import { AuthProvider } from "./context/AuthProvider"
 import ProtectedRoute, { PublicRoute } from "./utils/ProtectedRoute"
+import SignUp from "./pages/SignUp"
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,13 @@ const router = createBrowserRouter([
         element: 
         <PublicRoute>
           <SignIn />
+        </PublicRoute>
+      },
+      {
+        path: "/signup",
+        element:
+        <PublicRoute>
+          <SignUp />
         </PublicRoute>
       }
     ]

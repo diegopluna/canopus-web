@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import { useTranslation} from 'react-i18next';
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -17,7 +16,6 @@ interface FormValues {
 }
 
 export default function SignIn() {
-    const { t } = useTranslation(['signin']);
     const { toast } = useToast()
     const [formData, setFormData] = useState<FormValues>({
         email: "",
@@ -52,12 +50,12 @@ export default function SignIn() {
     return (
         <div key="1" className="min-h-screen flex flex-col justify-between relative">
             <img
-                alt={t('bg-img-top')}
+                alt="Imagem de fundo no canto superior direito"
                 className="hidden lg:block absolute top-0 right-0 h-[438px] w-[457px] object-cover z-10"
                 src={starTopRight}
             />
             <img
-                alt={t('bg-img-bottom')}
+                alt="Imagem de fundo no canto inferior esquerdo"
                 className="hidden lg:block absolute bottom-0 left-0 h-[580px] w-[628px] object-cover z-10"
                 src={starBottomLeft}
             />
@@ -65,7 +63,7 @@ export default function SignIn() {
                 <div className="p-4 sm:p-10  mx-4 sm:mx-auto w-full sm:w-[400px] rounded-xl">
                     <h1 className="text-center text-3xl font-bold mb-4">
                         <img
-                            alt={t('logo')}
+                            alt="Logotipo"
                             className="aspect-[2/1] overflow-hidden rounded-lg object-contain object-center mx-auto"
                             height="140"
                             src={canopusLogo}
@@ -74,12 +72,12 @@ export default function SignIn() {
                     </h1>
                     <form className="space-y-4" onSubmit={handleSubmit}>
                         <div className="space-y-2">
-                            <Label className="text-base" htmlFor="email">{t("email-label")}</Label>
+                            <Label className="text-base" htmlFor="email">E-mail</Label>
                             <Input 
                                 className="dark:bg-muted/30 dark:border-input/30 dark:text-primary-foreground" 
                                 id="email"
                                 name="email"
-                                placeholder={t("email-placeholder")} 
+                                placeholder="Digite seu e-mail"
                                 required 
                                 type="email"
                                 value={formData.email}
@@ -87,29 +85,29 @@ export default function SignIn() {
                             />
                         </div>
                         <div className="space-y-2">
-                            <Label className="text-base" htmlFor="password">{t("password-label")}</Label>
+                            <Label className="text-base" htmlFor="password">Senha</Label>
                             <Input 
                                 className="dark:bg-muted/30 dark:border-input/30 dark:text-primary-foreground" 
                                 id="password" 
                                 name="password"
                                 required 
-                                placeholder={t("password-placeholder")}
+                                placeholder="Digite sua senha"
                                 type="password" 
                                 value={formData.password}
                                 onChange={handleInputChange}
                             />
                         </div>
                         <Button className="w-full text-lg" type="submit">
-                            {t("signin-button")}
+                            Entrar
                         </Button>
                     </form>    
                 </div>  
                 <Separator className="my-4 w-full sm:w-[400px] mx-auto dark:bg-[#FFFFFF]/50" /> 
                 <div className="text-center">
-                    <span className="dark:text-white text-lg">{t("signup-message")} <a className="dark:text-foreground" href="#">{t("signup-button")}</a></span>
+                    <span className="dark:text-white text-lg">Não tem uma conta? <a className="dark:text-foreground" href="/signup">Inscreva-se</a></span>
                 </div>
                 <div className="my-8 text-center ">
-                    <span className="dark:text-[#64748B] text-base">{t("forgot-password")}<br />moderador@gmail.com</span>
+                    <span className="dark:text-[#64748B] text-base">Esqueceu a senha? Entre em contato com nossos administradores através do e-mail<br />moderador@gmail.com</span>
                 </div>
             </main>
             <Footer />

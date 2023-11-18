@@ -6,8 +6,6 @@ import { Client, IMessage } from "@stomp/stompjs"
 import { useEffect, useMemo, useState, useContext, useRef } from "react"
 import AuthContext from "@/context/AuthProvider"
 import { DateTime } from 'luxon';
-import { useTranslation} from 'react-i18next';
-
 
 
 
@@ -19,8 +17,6 @@ interface ChatMessage {
 }
 
 export default function Chat() {
-    const {t, i18n} = useTranslation(['chat']);
-
     const [sentMessage, setSentMessage] = useState("")
     const [receivedMessages, setReceivedMessages] = useState<ChatMessage[]>([])   
     const domain: string  = window.location.hostname === "localhost" ? "ws://localhost:8080/ws" : "wss://api-canopus.dpeter.tech/ws"
@@ -60,7 +56,7 @@ export default function Chat() {
     function onMessageReceived(payload: IMessage) {
         console.log(payload)
         const message = JSON.parse(payload.body)
-        message.timestamp = DateTime.fromISO(message.timestamp + 'Z').setZone('local').setLocale(i18n.language).toLocaleString(DateTime.DATETIME_MED_WITH_WEEKDAY);
+        message.timestamp = DateTime.fromISO(message.timestamp + 'Z').setZone('local').toLocaleString(DateTime.DATETIME_MED_WITH_WEEKDAY);
         setReceivedMessages(prevMessages => [...prevMessages, message])
     }
     
@@ -78,10 +74,10 @@ export default function Chat() {
         <div className="grid h-screen grid-cols-[300px_1fr] gap-4 p-4">
             <div className="rounded-lg shadow overflow-hidden">
                 <div className="p-4 border-b">
-                    <h2 className="text-lg font-semibold">{t("channels")}</h2>
+                    <h2 className="text-lg font-semibold">Canais</h2>
                 </div>
                 <nav className="px-4 py-2 space-y-1">
-                    <a className="block px-3 py-2 rounded-md text-sm font-medium" href="#">{t("general")}</a>
+                    <a className="block px-3 py-2 rounded-md text-sm font-medium" href="#">Geral</a>
                 </nav>
             </div>
             <div className="flex flex-col h-full rounded-lg shadow overflow-hidden">
@@ -108,12 +104,12 @@ export default function Chat() {
                     <form className="p-4 flex space-x-3" onSubmit={sendMessage}>
                         <Input
                             className="flex-grow dark:bg-muted/30 dark:border-input/30 dark:text-primary-foreground"
-                            placeholder={t("input-placeholder")}
+                            placeholder="Escreva uma mensagem"
                             value={sentMessage}
                             onChange={(e) => setSentMessage(e.target.value)}
                         />
                         <Button className="text-lg" type="submit">
-                            {t("send")}
+                            Enviar
                         </Button>
                     </form>
                 </div>
