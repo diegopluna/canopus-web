@@ -22,7 +22,7 @@ export default function Verify() {
 
     useEffect(() => {
         const verifyCode = async () => {
-            const domain: string  = window.location.hostname === "localhost" ? "http://localhost:8080" : "https://canopus-api.dpeter.tech"
+            const domain: string  = window.location.hostname === "localhost" ? "http://localhost:8080" : "https://api-canopus.dpeter.tech"
             if (code) {
                 await axios.post(`${domain}/auth/verify?code=${code}`)
                     .then((response) => {
