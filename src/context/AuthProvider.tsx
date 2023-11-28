@@ -88,7 +88,7 @@ export const AuthProvider = () => {
             })
             .catch((error: Error | AxiosError) => {
                 if (axios.isAxiosError(error)) {
-                    return {status: error.response?.status, message: error.response?.data.message}
+                    return {status: error.response?.status, message: error.message}
                 }
                 return {message: "Não foi possível se conectar ao servidor."}
             })

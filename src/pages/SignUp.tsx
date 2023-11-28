@@ -83,7 +83,7 @@ export default function SignUp() {
     const [state, setState] = useState("");
     const [city, setCity] = useState("");
     const [neighbourhood, setNeighbourhood] = useState("");
-    const [street, setStreet] = useState(""); 
+    const [street, setStreet] = useState("");
     const [loading , setLoading] = useState(false);
     const [openAlert, setOpenAlert] = useState(false);
     const [alertTitle, setAlertTitle] = useState("");

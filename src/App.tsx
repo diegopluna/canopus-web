@@ -1,12 +1,14 @@
 import { ThemeProvider } from "@/components/theme-provider"
 import SignIn from "@/pages/SignIn"
-import Chat from "./pages/Chat"
 import { Toaster } from "@/components/ui/toaster"
 import  { createBrowserRouter, RouterProvider} from "react-router-dom"
 import { AuthProvider } from "./context/AuthProvider"
 import ProtectedRoute, { PublicRoute } from "./utils/ProtectedRoute"
 import SignUp from "./pages/SignUp"
 import Verify from "./pages/Verify"
+import Home from "./pages/Home"
+import { Sidebar } from "./components/sidebar"
+import Chat from "./pages/Chat"
 
 const router = createBrowserRouter([
   {
@@ -15,10 +17,23 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: 
-        <ProtectedRoute>
-          <Chat />
-        </ProtectedRoute>
+        element: <Sidebar />,
+        children: [
+          {
+            path: "/",
+            element:
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          },
+          {
+            path: "/chat",
+            element:
+            <ProtectedRoute>
+              <Chat />
+            </ProtectedRoute>
+          }
+        ]
       },
       {
         path: "/signin",

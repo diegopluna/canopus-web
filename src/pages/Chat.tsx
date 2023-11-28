@@ -51,7 +51,7 @@ export default function Chat() {
     if (authContext === undefined) {
         return null
     }
-    // const { username } = authContext; //TODO AJEITAR ISSO
+    const { user } = authContext; //TODO AJEITAR ISSO
 
     function onMessageReceived(payload: IMessage) {
         console.log(payload)
@@ -63,7 +63,7 @@ export default function Chat() {
     function sendMessage(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()
         client.publish({destination: '/app/chat.sendMessage', body: JSON.stringify({
-            // sender: username, //TODO MUDAR ISSO AI
+            sender: user?.fullName, //TODO MUDAR ISSO AI
             type: "CHAT",
             content: sentMessage,
         })})
