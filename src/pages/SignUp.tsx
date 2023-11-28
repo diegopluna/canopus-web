@@ -608,7 +608,7 @@ export default function SignUp() {
                                                 <FormLabel className="text-base">Senha</FormLabel>
                                                 <FormControl>
                                                 <div className="relative">
-                                                <Input 
+                                                    <Input 
                                                         className="dark:bg-muted/30 dark:border-input/30 dark:text-primary-foreground" 
                                                         placeholder="Digite sua senha" 
                                                         {...field} 
