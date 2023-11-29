@@ -17,8 +17,13 @@ const useAxios = () => {
         baseURL: domain,
     })
 
+
     axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${authTokens?.access}`
+    axiosInstance.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
     
+
+    
+
     axiosInstance.interceptors.request.use(async req => {
         const user: UserPayload = jwtDecode(authTokens?.access as string)
         const isExpired = dayjs.unix(user?.exp as number).diff(dayjs()) < 1;
