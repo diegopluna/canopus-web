@@ -271,17 +271,38 @@ export default function SignUp() {
 
         console.log(data);
         setLoading(true);
-        const postData = {
-            fullName: data.fullName,
-            email: data.email,
-            phoneNumber: data.phoneNumber.replace("(", "").replace(")", "").replace("-", "").replace(" ", ""),
-            interests: data.interests.map((interest) => interest.value),
-            cep: data.cep,
-            streetNumber: Number(data.streetNumber),
-            complement: data.complement,
-            password: data.password,
-            avatar: avatarImage
-        }
+        const postData = avatarImage !== "" ? {
+                fullName: data.fullName,
+                email: data.email,
+                phoneNumber: data.phoneNumber.replace("(", "").replace(")", "").replace("-", "").replace(" ", ""),
+                interests: data.interests.map((interest) => interest.value),
+                cep: data.cep,
+                streetNumber: Number(data.streetNumber),
+                complement: data.complement,
+                password: data.password,
+                avatar: avatarImage
+            } : {
+                fullName: data.fullName,
+                email: data.email,
+                phoneNumber: data.phoneNumber.replace("(", "").replace(")", "").replace("-", "").replace(" ", ""),
+                interests: data.interests.map((interest) => interest.value),
+                cep: data.cep,
+                streetNumber: Number(data.streetNumber),
+                complement: data.complement,
+                password: data.password,
+            }
+        
+        // const postData = {
+        //     fullName: data.fullName,
+        //     email: data.email,
+        //     phoneNumber: data.phoneNumber.replace("(", "").replace(")", "").replace("-", "").replace(" ", ""),
+        //     interests: data.interests.map((interest) => interest.value),
+        //     cep: data.cep,
+        //     streetNumber: Number(data.streetNumber),
+        //     complement: data.complement,
+        //     password: data.password,
+        //     avatar: avatarImage
+        // }
         const response = await registerUser(postData);
         setLoading(false);
 

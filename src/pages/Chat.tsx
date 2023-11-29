@@ -20,7 +20,6 @@ export default function Chat() {
     const [sentMessage, setSentMessage] = useState("")
     const [receivedMessages, setReceivedMessages] = useState<ChatMessage[]>([])   
     const domain: string  = window.location.hostname === "localhost" ? "ws://localhost:8080/ws" : "wss://api-canopus.dpeter.tech/ws"
-    // const domain = "wss://api-canopus.dpeter.tech/ws"
     const client = useMemo(() => {
         return new Client({
             brokerURL: domain,

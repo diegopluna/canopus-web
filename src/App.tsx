@@ -9,6 +9,8 @@ import Verify from "./pages/Verify"
 import Home from "./pages/Home"
 import { Sidebar } from "./components/sidebar"
 import Chat from "./pages/Chat"
+import VerifyCreate from "./pages/VerifyCreate"
+import AdminPanel from "./pages/AdminPanel"
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,13 @@ const router = createBrowserRouter([
             <ProtectedRoute>
               <Chat />
             </ProtectedRoute>
+          },
+          {
+            path: "/admin",
+            element:
+            <ProtectedRoute>
+              <AdminPanel />
+            </ProtectedRoute>
           }
         ]
       },
@@ -48,13 +57,24 @@ const router = createBrowserRouter([
         <PublicRoute>
           <SignUp />
         </PublicRoute>
+      },
+      {
+        path: "/verify",
+        element: 
+        <PublicRoute>
+          <Verify />
+        </PublicRoute>
+      },
+      {
+        path: "/verify_create",
+        element: 
+        <PublicRoute>
+          <VerifyCreate />
+        </PublicRoute>
       }
     ]
   },
-  {
-    path: "/verify",
-    element: <Verify />
-  }
+  
 ])
 
 function App() {

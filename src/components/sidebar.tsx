@@ -1,4 +1,4 @@
-import { Home, Folder, MessageSquare, LogOut } from "lucide-react"
+import { Home, Folder, MessageSquare, LogOut, FolderCheck, FolderX, BookPlus, FolderPlus, BookOpen, ShieldPlus } from "lucide-react"
 import { Outlet } from "react-router-dom"
 import { useContext} from "react";
 import AuthContext from "@/context/AuthProvider";
@@ -46,6 +46,15 @@ export function Sidebar() {
                         {user?.role === "VOLUNTARIO" && (
                             <Volunteer />
                         )}
+                        {user?.role === "REP_ESCOLA" && (
+                            <SchoolRep />
+                        )}
+                        {user?.role === "EMBAIXADOR"  && (
+                            <Moderator />
+                        )}
+                        {user?.role === "ADMINISTRADOR" && (
+                            <Admin />
+                        )}
                     </div>
                     <div className="border-t mt-auto p-4">
                         <DropdownMenu>
@@ -67,7 +76,7 @@ export function Sidebar() {
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem onClick={logoutUser}>
                                     <LogOut />
-                                    {" "}Sair
+                                    Sair
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
@@ -108,6 +117,142 @@ function Volunteer() {
             >   
                 <MessageSquare className="h-4 w-4" />
                 Chat
+            </a>
+            
+        </nav>
+    )
+}
+
+function SchoolRep() {
+    return (
+        <nav className="grid items-start px-4 text-sm font-medium">
+            <a
+                className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${window.location.pathname === '/' ? 'text-gray-900 dark:text-gray-50' : 'text-gray-500 dark:text-gray-400'} hover:text-gray-900 dark:hover:text-gray-50`}
+                href="/"
+            >
+                <Home className="h-4 w-4" />
+                Início
+            </a>
+            <a
+                className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${window.location.pathname === '/TODO:MUDAR' ? 'text-gray-900 dark:text-gray-50' : 'text-gray-500 dark:text-gray-400'} hover:text-gray-900 dark:hover:text-gray-50`}
+                href="#"
+            >   
+                <Folder className="h-4 w-4" />
+                Projetos Ativos
+            </a>
+            <a
+                className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${window.location.pathname === '/TODO:MUDAR' ? 'text-gray-900 dark:text-gray-50' : 'text-gray-500 dark:text-gray-400'} hover:text-gray-900 dark:hover:text-gray-50`}
+                href="#"
+            >   
+                <FolderCheck className="h-4 w-4" />
+                Projetos Finalizados
+            </a>
+            <a
+                className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${window.location.pathname === '/TODO:MUDAR' ? 'text-gray-900 dark:text-gray-50' : 'text-gray-500 dark:text-gray-400'} hover:text-gray-900 dark:hover:text-gray-50`}
+                href="#"
+            >   
+                <FolderX className="h-4 w-4" />
+                Projetos Descartados
+            </a>
+            <a
+                className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${window.location.pathname === '/chat' ? 'text-gray-900 dark:text-gray-50' : 'text-gray-500 dark:text-gray-400'} hover:text-gray-900 dark:hover:text-gray-50`}
+                href="/chat"
+            >   
+                <MessageSquare className="h-4 w-4" />
+                Chat
+            </a>
+            
+        </nav>
+    )
+}
+
+function Moderator() {
+    return (
+        <nav className="grid items-start px-4 text-sm font-medium">
+            <a
+                className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${window.location.pathname === '/' ? 'text-gray-900 dark:text-gray-50' : 'text-gray-500 dark:text-gray-400'} hover:text-gray-900 dark:hover:text-gray-50`}
+                href="/"
+            >
+                <BookPlus className="h-4 w-4" />
+                Cadastrar Escola
+            </a>
+            <a
+                className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${window.location.pathname === '/TODO:MUDAR' ? 'text-gray-900 dark:text-gray-50' : 'text-gray-500 dark:text-gray-400'} hover:text-gray-900 dark:hover:text-gray-50`}
+                href="#"
+            >   
+                <FolderPlus className="h-4 w-4" />
+                Cadastrar Projeto
+            </a>
+            <a
+                className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${window.location.pathname === '/TODO:MUDAR' ? 'text-gray-900 dark:text-gray-50' : 'text-gray-500 dark:text-gray-400'} hover:text-gray-900 dark:hover:text-gray-50`}
+                href="#"
+            >   
+                <Folder className="h-4 w-4" />
+                Projetos
+            </a>
+            <a
+                className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${window.location.pathname === '/TODO:MUDAR' ? 'text-gray-900 dark:text-gray-50' : 'text-gray-500 dark:text-gray-400'} hover:text-gray-900 dark:hover:text-gray-50`}
+                href="#"
+            >   
+                <BookOpen className="h-4 w-4" />
+                Escolas
+            </a>
+            <a
+                className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${window.location.pathname === '/chat' ? 'text-gray-900 dark:text-gray-50' : 'text-gray-500 dark:text-gray-400'} hover:text-gray-900 dark:hover:text-gray-50`}
+                href="/chat"
+            >   
+                <MessageSquare className="h-4 w-4" />
+                Chat
+            </a>
+            
+        </nav>
+    )
+}
+
+function Admin() {
+    return (
+        <nav className="grid items-start px-4 text-sm font-medium">
+            <a
+                className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${window.location.pathname === '/' ? 'text-gray-900 dark:text-gray-50' : 'text-gray-500 dark:text-gray-400'} hover:text-gray-900 dark:hover:text-gray-50`}
+                href="/"
+            >
+                <BookPlus className="h-4 w-4" />
+                Cadastrar Escola
+            </a>
+            <a
+                className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${window.location.pathname === '/TODO:MUDAR' ? 'text-gray-900 dark:text-gray-50' : 'text-gray-500 dark:text-gray-400'} hover:text-gray-900 dark:hover:text-gray-50`}
+                href="#"
+            >   
+                <FolderPlus className="h-4 w-4" />
+                Cadastrar Projeto
+            </a>
+            <a
+                className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${window.location.pathname === '/TODO:MUDAR' ? 'text-gray-900 dark:text-gray-50' : 'text-gray-500 dark:text-gray-400'} hover:text-gray-900 dark:hover:text-gray-50`}
+                href="#"
+            >   
+                <Folder className="h-4 w-4" />
+                Projetos
+            </a>
+            <a
+                className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${window.location.pathname === '/TODO:MUDAR' ? 'text-gray-900 dark:text-gray-50' : 'text-gray-500 dark:text-gray-400'} hover:text-gray-900 dark:hover:text-gray-50`}
+                href="#"
+            >   
+                <BookOpen className="h-4 w-4" />
+                Escolas
+            </a>
+            <a
+                className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${window.location.pathname === '/chat' ? 'text-gray-900 dark:text-gray-50' : 'text-gray-500 dark:text-gray-400'} hover:text-gray-900 dark:hover:text-gray-50`}
+                href="/chat"
+            >   
+                <MessageSquare className="h-4 w-4" />
+                Chat
+            </a>
+            <a
+                className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${window.location.pathname === '/admin' ? 'text-gray-900 dark:text-gray-50' : 'text-gray-500 dark:text-gray-400'} hover:text-gray-900 dark:hover:text-gray-50`}
+                href="/admin"
+            >   
+                <ShieldPlus className="h-4 w-4" />
+                Painel Administrativo
             </a>
             
         </nav>

@@ -22,6 +22,7 @@ interface AuthContextType {
     loginUser: (email: string, password: string) => Promise<requestResponse>;
     registerUser: (data: registerData) => Promise<requestResponse>;
     logoutUser: () => Promise<void>;
+    updateToken: () => Promise<void>;
 }
 
 type registerData = {
@@ -87,8 +88,9 @@ export const AuthProvider = () => {
                 return {status: response.status, message: response.data.message}
             })
             .catch((error: Error | AxiosError) => {
+                console.log(error)
                 if (axios.isAxiosError(error)) {
-                    return {status: error.response?.status, message: error.message}
+                    return {status: error.response?.status, message: error.response?.data.message}
                 }
                 return {message: "Não foi possível se conectar ao servidor."}
             })
@@ -101,6 +103,26 @@ export const AuthProvider = () => {
         setUser(undefined)
         localStorage.removeItem('authTokens')
         navigate("/signin")
+    }
+
+    const updateToken =  async():Promise<void> => {
+        console.log('Update token called')
+        await axios.post(domain+'/api/token/refresh/',{
+            refresh: authTokens?.refresh,
+        })
+        .then((response) => {
+            if (response.status === 200) {
+                setAuthTokens(response.data)
+                setUser(jwtDecode(response.data.access))
+                localStorage.setItem('authTokens', JSON.stringify(response.data))
+            } else {
+                logoutUser()
+            }
+        })
+        .catch((error: Error | AxiosError) => {
+            console.log(error)
+            logoutUser()
+        })
     }
 
     useEffect(() => {
@@ -116,7 +138,8 @@ export const AuthProvider = () => {
         setAuthTokens: setAuthTokens,
         loginUser: loginUser,
         registerUser: registerUser,
-        logoutUser: logoutUser
+        logoutUser: logoutUser,
+        updateToken: updateToken
     }
 
     return (
