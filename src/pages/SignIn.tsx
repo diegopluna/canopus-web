@@ -1,5 +1,4 @@
-import React, { useState, useContext } from "react";
-import { Label } from "@/components/ui/label";
+import { useState, useContext } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Footer from "@/components/footer";
@@ -9,18 +8,33 @@ import starBottomLeft from "@/assets/StarBottomLeft.svg"
 import starTopRight from "@/assets/StarTopRight.svg"
 import canopusLogo from "@/assets/Canopus.svg"
 import AuthContext from "@/context/AuthProvider";
+import * as z from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { EyeOff, Eye, Loader2 } from "lucide-react";
 
-interface FormValues {
-    email: string;
-    password: string;
-}
+
+
+
+
+
+const formSchema = z.object({
+    email: z.string().email({message: "E-mail deve ser um e-mail válido"}),
+    password: z.string({
+        required_error: "Senha é obrigatória",
+        invalid_type_error: "Senha deve ser uma string"
+    }).min(6, {
+        message: "Senha deve ter pelo menos 6 caracteres"
+    }).max(40 ,{
+        message: "Senha deve ter no máximo 40 caracteres"
+    }) 
+})
 
 export default function SignIn() {
+    const [showPassword, setShowPassword] = useState(false);
+    const [loading , setLoading] = useState(false);
     const { toast } = useToast()
-    const [formData, setFormData] = useState<FormValues>({
-        email: "",
-        password: "",
-    });
 
     const authContext = useContext(AuthContext)
     if (authContext === undefined) {
@@ -28,24 +42,29 @@ export default function SignIn() {
     }
     const { loginUser } = authContext;
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        // const domain: string  = window.location.hostname === "localhost" ? "http://localhost:8080" : "https://canopus-api.dpeter.tech"
-        const { email} = formData;
-        loginUser(email)
-        toast({
-            description: "logado",
-        })
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            email: "",
+            password: "",
+        }
+    
+    })
+
+    const onSubmit = async (data: z.infer<typeof formSchema>) => {
+        setLoading(true)
+        const { email, password } = data;
+        const response = await loginUser(email, password)
+        if (response.status !== 200) {
+            toast({
+                variant: "destructive",
+                description: response.message,
+            })
+        }
+        setLoading(false)
+        
         
     }
-
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
-        setFormData((prevData) => ({
-          ...prevData,
-          [name]: value,
-        }));
-    };
 
     return (
         <div key="1" className="min-h-screen flex flex-col justify-between relative">
@@ -70,7 +89,71 @@ export default function SignIn() {
                             width="280"
                         />
                     </h1>
-                    <form className="space-y-4" onSubmit={handleSubmit}>
+                    <Form {...form}>
+                        <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+                            <div className="space-y-2">
+                                <FormField
+                                    control={form.control}
+                                    name="email"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel className="text-base">E-mail</FormLabel>
+                                            <FormControl>
+                                                <Input
+                                                    className="dark:bg-muted/30 dark:border-input/30 dark:text-primary-foreground"
+                                                    placeholder="Digite seu e-mail"
+                                                    {...field}
+                                                    required
+                                                />
+                                            </FormControl>
+                                            <FormMessage/>
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <FormField
+                                    control={form.control}
+                                    name="password"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel className="text-base">Senha</FormLabel>
+                                            <FormControl>
+                                                <div className="relative">
+                                                    <Input
+                                                        className="dark:bg-muted/30 dark:border-input/30 dark:text-primary-foreground"
+                                                        required 
+                                                        placeholder="Digite sua senha"
+                                                        type={showPassword ? "text" : "password"}
+                                                        {...field}
+                                                    />
+                                                    <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 cursor-pointer">
+                                                        {showPassword ? (
+                                                            <Eye className="h-4 w-4" onClick={() => setShowPassword(false)} />
+                                                        ) : (
+                                                            <EyeOff className="h-4 w-4" onClick={() => setShowPassword(true)} />
+                                                        )}
+                                                    </div>
+                                                </div>                                          
+                                            </FormControl>
+                                            <FormMessage/>
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
+                            {loading ? (
+                                <Button className="w-full text-lg" type="submit" disabled>
+                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                    Carregando...
+                                </Button>)
+                                :
+                                <Button className="w-full text-lg" type="submit">
+                                    Entrar
+                                </Button>
+                            }
+                        </form>
+                    </Form>
+                    {/* <form className="space-y-4" onSubmit={handleSubmit}>
                         <div className="space-y-2">
                             <Label className="text-base" htmlFor="email">E-mail</Label>
                             <Input 
@@ -100,7 +183,7 @@ export default function SignIn() {
                         <Button className="w-full text-lg" type="submit">
                             Entrar
                         </Button>
-                    </form>    
+                    </form>     */}
                 </div>  
                 <Separator className="my-4 w-full sm:w-[400px] mx-auto dark:bg-[#FFFFFF]/50" /> 
                 <div className="text-center">

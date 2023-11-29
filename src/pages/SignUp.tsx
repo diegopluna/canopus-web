@@ -83,7 +83,7 @@ export default function SignUp() {
     const [state, setState] = useState("");
     const [city, setCity] = useState("");
     const [neighbourhood, setNeighbourhood] = useState("");
-    const [street, setStreet] = useState(""); 
+    const [street, setStreet] = useState("");
     const [loading , setLoading] = useState(false);
     const [openAlert, setOpenAlert] = useState(false);
     const [alertTitle, setAlertTitle] = useState("");
@@ -271,17 +271,38 @@ export default function SignUp() {
 
         console.log(data);
         setLoading(true);
-        const postData = {
-            fullName: data.fullName,
-            email: data.email,
-            phoneNumber: data.phoneNumber.replace("(", "").replace(")", "").replace("-", "").replace(" ", ""),
-            interests: data.interests.map((interest) => interest.value),
-            cep: data.cep,
-            streetNumber: Number(data.streetNumber),
-            complement: data.complement,
-            password: data.password,
-            avatar: avatarImage
-        }
+        const postData = avatarImage !== "" ? {
+                fullName: data.fullName,
+                email: data.email,
+                phoneNumber: data.phoneNumber.replace("(", "").replace(")", "").replace("-", "").replace(" ", ""),
+                interests: data.interests.map((interest) => interest.value),
+                cep: data.cep,
+                streetNumber: Number(data.streetNumber),
+                complement: data.complement,
+                password: data.password,
+                avatar: avatarImage
+            } : {
+                fullName: data.fullName,
+                email: data.email,
+                phoneNumber: data.phoneNumber.replace("(", "").replace(")", "").replace("-", "").replace(" ", ""),
+                interests: data.interests.map((interest) => interest.value),
+                cep: data.cep,
+                streetNumber: Number(data.streetNumber),
+                complement: data.complement,
+                password: data.password,
+            }
+        
+        // const postData = {
+        //     fullName: data.fullName,
+        //     email: data.email,
+        //     phoneNumber: data.phoneNumber.replace("(", "").replace(")", "").replace("-", "").replace(" ", ""),
+        //     interests: data.interests.map((interest) => interest.value),
+        //     cep: data.cep,
+        //     streetNumber: Number(data.streetNumber),
+        //     complement: data.complement,
+        //     password: data.password,
+        //     avatar: avatarImage
+        // }
         const response = await registerUser(postData);
         setLoading(false);
 
@@ -608,7 +629,7 @@ export default function SignUp() {
                                                 <FormLabel className="text-base">Senha</FormLabel>
                                                 <FormControl>
                                                 <div className="relative">
-                                                <Input 
+                                                    <Input 
                                                         className="dark:bg-muted/30 dark:border-input/30 dark:text-primary-foreground" 
                                                         placeholder="Digite sua senha" 
                                                         {...field} 
