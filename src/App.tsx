@@ -11,6 +11,9 @@ import { Sidebar } from "./components/sidebar"
 import Chat from "./pages/Chat"
 import VerifyCreate from "./pages/VerifyCreate"
 import AdminPanel from "./pages/AdminPanel"
+import ActiveProjects from "./pages/ActiveProjects"
+import AllProjects from "./pages/AllProjects"
+import AllSchools from "./pages/AllSchools"
 
 const router = createBrowserRouter([
   {
@@ -40,6 +43,27 @@ const router = createBrowserRouter([
             element:
             <ProtectedRoute>
               <AdminPanel />
+            </ProtectedRoute>
+          },
+          {
+            path: "/projs/active",
+            element:
+            <ProtectedRoute>
+              <ActiveProjects />
+            </ProtectedRoute>
+          },
+          {
+            path: "/projs/all",
+            element:
+            <ProtectedRoute>
+              <AllProjects />
+            </ProtectedRoute>
+          },
+          {
+            path: "/school/all",
+            element:
+            <ProtectedRoute>
+              <AllSchools />
             </ProtectedRoute>
           }
         ]

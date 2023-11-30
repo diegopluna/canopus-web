@@ -57,12 +57,6 @@ export default function Chat() {
         }
     }, [client])
 
-    // const authContext = useContext(AuthContext)
-    // if (authContext === undefined) {
-    //     return null
-    // }
-    // const { user } = authContext; //TODO AJEITAR ISSO
-
     function onMessageReceived(payload: IMessage) {
         console.log(payload)
         const message = JSON.parse(payload.body)
@@ -84,14 +78,6 @@ export default function Chat() {
 
     return (
         <div className="grid h-screen  gap-4 p-4">
-            {/* <div className="rounded-lg shadow overflow-hidden">
-                <div className="p-4 border-b">
-                    <h2 className="text-lg font-semibold">Canais</h2>
-                </div>
-                <nav className="px-4 py-2 space-y-1">
-                    <a className="block px-3 py-2 rounded-md text-sm font-medium" href="#">Geral</a>
-                </nav>
-            </div> */}
             <div className="flex flex-col h-full rounded-lg shadow overflow-hidden">
                 <div className="flex-grow overflow-auto">
                     <ScrollArea className="p-4 space-y-4 h-full">
