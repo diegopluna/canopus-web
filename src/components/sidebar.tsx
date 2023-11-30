@@ -105,8 +105,8 @@ function Volunteer() {
                 Início
             </a>
             <a
-                className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${window.location.pathname === '/TODO:MUDAR' ? 'text-gray-900 dark:text-gray-50' : 'text-gray-500 dark:text-gray-400'} hover:text-gray-900 dark:hover:text-gray-50`}
-                href="#"
+                className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${window.location.pathname === '/projs/active' ? 'text-gray-900 dark:text-gray-50' : 'text-gray-500 dark:text-gray-400'} hover:text-gray-900 dark:hover:text-gray-50`}
+                href='/projs/active'
             >   
                 <Folder className="h-4 w-4" />
                 Projetos Ativos
@@ -134,8 +134,8 @@ function SchoolRep() {
                 Início
             </a>
             <a
-                className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${window.location.pathname === '/TODO:MUDAR' ? 'text-gray-900 dark:text-gray-50' : 'text-gray-500 dark:text-gray-400'} hover:text-gray-900 dark:hover:text-gray-50`}
-                href="#"
+                className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${window.location.pathname === '/projs/active' ? 'text-gray-900 dark:text-gray-50' : 'text-gray-500 dark:text-gray-400'} hover:text-gray-900 dark:hover:text-gray-50`}
+                href='/projs/active'
             >   
                 <Folder className="h-4 w-4" />
                 Projetos Ativos
@@ -184,15 +184,15 @@ function Moderator() {
                 Cadastrar Projeto
             </a>
             <a
-                className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${window.location.pathname === '/TODO:MUDAR' ? 'text-gray-900 dark:text-gray-50' : 'text-gray-500 dark:text-gray-400'} hover:text-gray-900 dark:hover:text-gray-50`}
-                href="#"
+                className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${window.location.pathname === '/projs/all' ? 'text-gray-900 dark:text-gray-50' : 'text-gray-500 dark:text-gray-400'} hover:text-gray-900 dark:hover:text-gray-50`}
+                href="/projs/all"
             >   
                 <Folder className="h-4 w-4" />
                 Projetos
             </a>
             <a
-                className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${window.location.pathname === '/TODO:MUDAR' ? 'text-gray-900 dark:text-gray-50' : 'text-gray-500 dark:text-gray-400'} hover:text-gray-900 dark:hover:text-gray-50`}
-                href="#"
+                className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${window.location.pathname === '/school/all' ? 'text-gray-900 dark:text-gray-50' : 'text-gray-500 dark:text-gray-400'} hover:text-gray-900 dark:hover:text-gray-50`}
+                href="/school/all"
             >   
                 <BookOpen className="h-4 w-4" />
                 Escolas
@@ -227,15 +227,15 @@ function Admin() {
                 Cadastrar Projeto
             </a>
             <a
-                className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${window.location.pathname === '/TODO:MUDAR' ? 'text-gray-900 dark:text-gray-50' : 'text-gray-500 dark:text-gray-400'} hover:text-gray-900 dark:hover:text-gray-50`}
-                href="#"
+                className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${window.location.pathname === '/projs/all' ? 'text-gray-900 dark:text-gray-50' : 'text-gray-500 dark:text-gray-400'} hover:text-gray-900 dark:hover:text-gray-50`}
+                href="/projs/all"
             >   
                 <Folder className="h-4 w-4" />
                 Projetos
             </a>
             <a
-                className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${window.location.pathname === '/TODO:MUDAR' ? 'text-gray-900 dark:text-gray-50' : 'text-gray-500 dark:text-gray-400'} hover:text-gray-900 dark:hover:text-gray-50`}
-                href="#"
+                className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all ${window.location.pathname === '/school/all' ? 'text-gray-900 dark:text-gray-50' : 'text-gray-500 dark:text-gray-400'} hover:text-gray-900 dark:hover:text-gray-50`}
+                href="/school/all"
             >   
                 <BookOpen className="h-4 w-4" />
                 Escolas
